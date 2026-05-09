@@ -109,4 +109,20 @@ function updateAnalogClock(hours, minutes) {
     document.getElementById("minuteHand").style.transform =
         "rotate(" + (minuteDeg - 90) + "deg)";
 }
+
+function parseDigitalInput() {
+    var value = document.getElementById("digital").value;
+    var parts = value.split(":");
+
+    var h = parseInt(parts[0], 10) || 0;
+    var m = parseInt(parts[1], 10) || 0;
+
+    updateAnalogClock(h, m);
+}
+
+document.getElementById("digital").addEventListener("input", parseDigitalInput);
+
+// Initialize on page load
+parseDigitalInput();
+
 </script>
