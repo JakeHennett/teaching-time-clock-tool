@@ -38,13 +38,43 @@
         height: 4px;
         background: black;
         top: 50%;
-        transform-origin: 100%;
-        transform: rotate(90deg);
+        left: 50%;
+        transform-origin: 0% 50%;
     }
 
-    .hour { height: 6px; width: 35%; }
-    .minute { height: 4px; width: 45%; }
-    .second { height: 2px; width: 48%; background: red; }
+    .hour {
+        height: 6px;
+        width: 35%;
+    }
+
+    .minute {
+        height: 4px;
+        width: 45%;
+    }
+
+    /* Numbers around the clock (simple, explicit positions) */
+    .number {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .n12 { top: 5px; left: 50%; transform: translateX(-50%); }
+    .n1  { top: 25px; right: 70px; }
+    .n2  { top: 65px; right: 30px; }
+    .n3  { top: 50%; right: 5px; transform: translateY(-50%); }
+    .n4  { bottom: 65px; right: 30px; }
+    .n5  { bottom: 25px; right: 70px; }
+    .n6  { bottom: 5px; left: 50%; transform: translateX(-50%); }
+    .n7  { bottom: 25px; left: 70px; }
+    .n8  { bottom: 65px; left: 30px; }
+    .n9  { top: 50%; left: 5px; transform: translateY(-50%); }
+    .n10 { top: 65px; left: 30px; }
+    .n11 { top: 25px; left: 70px; }
 </style>
 </head>
 <body>
@@ -54,36 +84,7 @@
 <div class="clock">
     <div id="hourHand" class="hand hour"></div>
     <div id="minuteHand" class="hand minute"></div>
-    <div id="secondHand" class="hand second"></div>
-</div>
 
-<script>
-function updateAnalogClock(hours, minutes, seconds) {
-    const hourDeg = (hours % 12) * 30 + minutes * 0.5;
-    const minuteDeg = minutes * 6;
-    const secondDeg = seconds * 6;
-
-    document.getElementById("hourHand").style.transform = `rotate(${hourDeg}deg)`;
-    document.getElementById("minuteHand").style.transform = `rotate(${minuteDeg}deg)`;
-    document.getElementById("secondHand").style.transform = `rotate(${secondDeg}deg)`;
-}
-
-function parseDigitalInput() {
-    const value = document.getElementById("digital").value;
-    const parts = value.split(":");
-
-    let h = parseInt(parts[0]) || 0;
-    let m = parseInt(parts[1]) || 0;
-    let s = parts[2] ? parseInt(parts[2]) : 0;
-
-    updateAnalogClock(h, m, s);
-}
-
-document.getElementById("digital").addEventListener("input", parseDigitalInput);
-
-// Initialize
-parseDigitalInput();
-</script>
-
-</body>
-</html>
+    <!-- Clock numbers -->
+    <div class="number n12">12</div>
+    <div class="number n1">
