@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Digital + Analog Clock</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        margin-top: 40px;
+    }
+
+    /* DIGITAL CLOCK */
+    #digital {
+        font-size: 64px;
+        width: 300px;
+        text-align: center;
+        padding: 10px;
+        border: 2px solid #333;
+        border-radius: 8px;
+    }
+
+    /* ANALOG CLOCK */
+    .clock {
+        width: 300px;
+        height: 300px;
+        border: 8px solid #333;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .hand {
+        position: absolute;
+        width: 50%;
+        height: 4px;
+        background: black;
+        top: 50%;
+        transform-origin: 100%;
+        transform: rotate(90deg);
+    }
+
+    .hour { height: 6px; width: 35%; }
+    .minute { height: 4px; width: 45%; }
+    .second { height: 2px; width: 48%; background: red; }
+</style>
+</head>
+<body>
+
+<input id="digital" type="text" value="12:00" />
+
+<div class="clock">
+    <div id="hourHand" class="hand hour"></div>
+    <div id="minuteHand" class="hand minute"></div>
+    <div id="secondHand" class="hand second"></div>
+</div>
+
+<script>
+function updateAnalogClock(hours, minutes, seconds) {
+    const hourDeg = (hours % 12) * 30 + minutes * 0.5;
+    const minuteDeg = minutes * 6;
+    const secondDeg = seconds * 6;
+
+    document.getElementById("hourHand").style.transform = `rotate(${hourDeg}deg)`;
+    document.getElementById("minuteHand").style.transform = `rotate(${minuteDeg}deg)`;
+    document.getElementById("secondHand").style.transform = `rotate(${secondDeg}deg)`;
+}
+
+function parseDigitalInput() {
+    const value = document.getElementById("digital").value;
+    const parts = value.split(":");
+
+    let h = parseInt(parts[0]) || 0;
+    let m = parseInt(parts[1]) || 0;
+    let s = parts[2] ? parseInt(parts[2]) : 0;
+
+    updateAnalogClock(h, m, s);
+}
+
+document.getElementById("digital").addEventListener("input", parseDigitalInput);
+
+// Initialize
+parseDigitalInput();
+</script>
+
+</body>
+</html>
